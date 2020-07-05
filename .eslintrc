@@ -1,0 +1,69 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint"
+  ],
+  "rules": {
+    "prettier/prettier": "warn",
+
+    "indent": [
+      "warn",
+      2,
+      {
+        "VariableDeclarator": {
+          "var": 2,
+          "let": 2,
+          "const": 3
+        },
+        "SwitchCase": 1
+      }
+    ],
+    "@typescript-eslint/camelcase": ["off"],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"],
+    "semi-spacing": [
+      "error",
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+
+    "comma-dangle": ["error", "never"],
+    "no-cond-assign": ["error", "always"],
+
+    "no-var": "error",
+
+    "no-console": "off",
+    "no-unused-vars": "warn",
+    "no-sync": "warn",
+    "no-eval": "error",
+    "no-implied-eval": "error",
+
+    "handle-callback-err": "error",
+
+    "multiline-ternary": ["error", "never"],
+
+    // Too Much False Positive
+    "require-atomic-updates": "off"
+  }
+}
