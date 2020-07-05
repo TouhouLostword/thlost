@@ -30,6 +30,10 @@
     "@types/node": "^14.0.14",
     "cli-ux": "^5.4.9"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TouhouLostword/thlost.git"
+  },
   "oclif": {
     "commands": "./lib/command",
     "bin": "thlost",

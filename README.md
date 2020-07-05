@@ -1,7 +1,7 @@
 # Installation
 
 ```shell
-git clone
+git clone https://github.com/TouhouLostword/thlost.git
 cd thlost
 npm install # yarn install
 npm run build
@@ -11,5 +11,5 @@ npm link
 # Usage
 
 ```shell
-thlost --help
+thlost --help # ./bin/run --help
 ```
