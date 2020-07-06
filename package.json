@@ -2,18 +2,20 @@
   "name": "thlost",
   "version": "1.0.0",
   "description": "touhou lostword",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "author": "Code",
   "license": "GPL-3.0",
   "bin": {
     "thlost": "./bin/run"
   },
   "scripts": {
+    "lint": "eslint --fix --ext .ts src",
     "build": "tsc",
     "postbuild": "oclif-dev manifest && oclif-dev readme"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
+    "@types/ejs": "^3.0.4",
     "@typescript-eslint/eslint-plugin": "^2.8.0",
     "@typescript-eslint/parser": "^2.8.0",
     "eslint": "^6.6.0",
@@ -35,7 +37,7 @@
     "url": "https://github.com/TouhouLostword/thlost.git"
   },
   "oclif": {
-    "commands": "./lib/command",
+    "commands": "./src/command",
     "bin": "thlost",
     "plugins": [
       "@oclif/plugin-help"
@@ -43,7 +45,7 @@
   },
   "files": [
     "/bin",
-    "/lib",
+    "/src",
     "/oclif.manifest.json"
   ]
 }
