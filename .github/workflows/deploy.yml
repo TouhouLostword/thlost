@@ -40,7 +40,7 @@ jobs:
       uses: s0/git-publish-subdir-action@develop
       env:
         REPO: self
-          BRANCH: gh-pages
-          FOLDER: build
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Auto deploy {sha}:\n{msg}"
+        BRANCH: gh-pages
+        FOLDER: build
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        MESSAGE: "Auto deploy {sha}:\n{msg}"
