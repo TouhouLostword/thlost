@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Unit List</title>
+  </head>
+  <body>
+    <div>
+      <% data.unit.forEach(v => { %>
+        <div>
+          <a href="<%- `${publicPath}/unit/${v.id}.html` %>"><%= v.name %></a>
+        </div>
+      <% }) %>
+    </div>
+  </body>
+</html>

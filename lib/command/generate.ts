@@ -4,6 +4,7 @@ import { DB } from '../mastertable';
 import { MasterManifest } from '../mafinest';
 import { devConfig, prodConfig } from '../pack/packs';
 import webpack = require('webpack');
+import { Generator } from '../pack/index';
 
 export default class Generate extends Command {
   static description = 'Generate';
@@ -46,6 +47,7 @@ export default class Generate extends Command {
       const ur = DB.unit.get(1023);
       await UnitGenerator.generate(parseUnitRecord(ur));
     } else {
+      const list = [];
       for (const ur of DB.unit.toArray()) {
         if (!ur.short_name.match('なし') && !ur.alias_name.match('なし')) {
           this.log(ur.name);
@@ -54,7 +56,19 @@ export default class Generate extends Command {
             `unit/${ur.id}.html`
           );
         }
+        list.push({
+          name: ur.name,
+          id: ur.id
+        });
       }
+      const ulg = new Generator<{
+        unit: {
+          name: string;
+          id: int;
+        }[];
+      }>('unitlist.html.ejs');
+      await ulg.load();
+      await ulg.generate({ unit: list });
     }
 
     if (!flags['no-webpack'] || flags.production) {
