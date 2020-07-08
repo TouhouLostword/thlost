@@ -55,11 +55,11 @@ export default class Generate extends Command {
             parseUnitRecord(ur),
             `unit/${ur.id}.html`
           );
+          list.push({
+            name: ur.name + (ur.alias_name.match('_TEST') ? '_TEST' : ''),
+            id: ur.id
+          });
         }
-        list.push({
-          name: ur.name,
-          id: ur.id
-        });
       }
       const ulg = new Generator<{
         unit: {
