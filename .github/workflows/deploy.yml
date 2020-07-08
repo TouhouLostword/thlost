@@ -1,21 +1,20 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Deploy
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  deploy:
     # The type of runner that the job will run on
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     
     # matrix
     strategy:
@@ -30,7 +29,18 @@ jobs:
       uses: actions/setup-node@v1
       with: 
         node-version: ${{ matrix.node }}
-        
-    - run: npm install
-    - run: npm run build --if-present
-    - run: npm run lint --if-present
+    - name: Build
+      run: |
+        npm install
+        npm run build
+        ./bin/run gen -p
+    - name: Lint
+      run: npm run lint --if-present
+    - name: Deploy
+      uses: s0/git-publish-subdir-action@develop
+      env:
+        REPO: self
+          BRANCH: gh-pages
+          FOLDER: build
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MESSAGE: "Auto deploy {sha}:\n{msg}"

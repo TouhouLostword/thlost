@@ -7,7 +7,7 @@ export {
   BulletExtraEffectRecord
 } from './bullet';
 
-export { CharateristicRecord } from './characteristic';
+export { CharacteristicRecord } from './characteristic';
 
 export { EnemyRecord } from './enemy';
 

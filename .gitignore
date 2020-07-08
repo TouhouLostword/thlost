@@ -9,11 +9,17 @@ coverage
 
 touhoulostword/
 assets/
+public/
+
+lib/**/*.js
+lib/**/*.js.map
+lib/**/*.d.ts
 
 src/**/*.js
 src/**/*.js.map
 src/**/*.d.ts
 
+report.*.json
 
 yarn.lock
 yarn-error.log

@@ -1,0 +1,14 @@
+<div class="skill">
+  <fieldset>
+    <legend>
+      <%= data.name %>
+    </legend>
+    <div>
+      <% for(let i = 0; i < data.effects.length; ++i) { %>
+      <div>
+        <%- data.effects[i].descriptions[9] %>
+      </div>
+      <% } %>
+    </div>
+  </fieldset>
+</div>

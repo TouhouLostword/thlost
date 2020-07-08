@@ -1,6 +1,6 @@
 import { MasterRecord, MasterTable } from './primitive';
 
-export type CharateristicRecord = MasterRecord & {
+export type CharacteristicRecord = MasterRecord & {
   id: int;
 
   characteristic1_name: string;
@@ -38,4 +38,4 @@ export type CharateristicRecord = MasterRecord & {
   trust_characteristic_rear_effect_type: int;
 };
 
-export class CharateristicTable extends MasterTable<CharateristicRecord> {}
+export class CharacteristicTable extends MasterTable<CharacteristicRecord> {}

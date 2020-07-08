@@ -2,7 +2,7 @@
   "compilerOptions": {
     "lib": ["dom", "es5", "es6", "es7"],
     "module": "commonjs",
-    "target": "es6",
+    "target": "es5",
     "moduleResolution": "node",
 
     "resolveJsonModule": true,
@@ -21,6 +21,5 @@
     "skipLibCheck": true
     
   },
-  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

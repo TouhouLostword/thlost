@@ -1,0 +1,93 @@
+<% const ELEMENTS = ['', '日', '月', '火', '水', '木', '金', '土', '星', '無'];
+const RANGES = ['補助', '単体', '全体']; const TYPES = ['陰', '陽'];
+if(data.name === 'なし') { %>
+<h3>
+  <%= prefix %>
+</h3>
+<div class="shot">
+  <h3>
+    <%= data.name %>
+  </h3>
+  <div></div>
+</div>
+<% } else { %>
+<h3>
+  <%= `${prefix} ${RANGES[data.bullets[0].range]}` %>
+</h3>
+<div class="shot">
+  <h3>
+    <%= data.name %>
+  </h3>
+  <div>
+    <p><%- data.specification.replace(/\n/g, '<br />'); %></p>
+
+    <% if (spellcard) { let hasfore = false, hasback = false;for(let i = 0; i <
+    data.effects.length; ++i) { %>
+    <table>
+      <tr>
+        <td>
+          <% if(data.timings[i] === 1 && !hasfore) { hasfore = true; %>
+          <div class="decoration">
+            攻撃前
+          </div>
+          <% } else if (data.timings[i] === 2 && !hasback) { hasback = true; %>
+          <div class="decoration">
+            攻撃後
+          </div>
+          <% } %>
+          <div><%- data.effects[i].descriptions[data.effects[i].descriptions.length - 1] %></div>
+        </td>
+      </tr>
+    </table>
+
+    <% } } %>
+    <div class="bullets">
+      <% data.bullets.forEach((v, i) => { %>
+      <div class="magazine">
+        <% if(v.name.length == 0) { %> 
+          <% if(!i) { %>
+          <hr>
+          <div class="magazine-null">弾幕なし</div>
+          <% } %> 
+        <% } else { %>
+        <table class="magazine-line1">
+          <tr>
+            <td width="35">
+              <%= v.boost_count %>P
+            </td>
+            <td width="35">
+              <%= ELEMENTS[v.element] %>
+            </td>
+            <td width="35">
+              <%= TYPES[v.type] %>
+            </td>
+            <td width="35">
+              <%= RANGES[v.range][0] %>
+            </td>
+            <td>
+              <%= v.name %>
+            </td>
+            <td width="30">
+              x<%= v.value %>
+            </td>
+          </tr>
+        </table>
+
+        <table class="magazine-line2">
+          <tr>
+            <td class="description">威力</td>
+            <td><%= v.power_rate.toFixed(2) %></td>
+            <td class="description">命中</td>
+            <td><%= v.hit %>%</td>
+            <td class="description">CRI</td>
+            <td><%= v.critical %>%</td>
+          </tr>
+        </table>
+
+        <% } %>
+      </div>
+      <% }); %>
+    </div>
+  </div>
+</div>
+<% } %>

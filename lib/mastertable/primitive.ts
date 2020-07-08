@@ -1,6 +1,7 @@
 import { Decoder } from './decoder';
 
-export type MasterRecord = object;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type MasterRecord = Record<string, any>;
 
 export abstract class MasterTable<TRec extends MasterRecord> {
   protected table: Record<string, TRec> = {};
@@ -18,7 +19,7 @@ export abstract class MasterTable<TRec extends MasterRecord> {
     >;
   }
 
-  get(key: string | int): TRec | undefined {
+  get(key: string | int): TRec {
     return this.table[key];
   }
 

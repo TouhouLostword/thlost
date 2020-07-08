@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title><%= data.name %></title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+
+    <link rel="stylesheet" type="text/css" href="<%- publicPath %>/css/unit.css" />
+    <script type="text/javascript" src="<%- publicPath %>/js/unit.js"></script>
+  </head>
+  <body>
+    <div class="property">
+      <table class="property-line1">
+        <tbody>
+          <tr>
+            <td class="names">
+              <div class="alias">
+                <%= data.alias %>
+              </div>
+              <div class="name">
+                <%= data.name %>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="property-line2">
+        <tbody>
+          <tr>
+            <td class="description">体力</td>
+            <td><%= data.life_point %></td>
+            <td class="description">陽攻</td>
+            <td><%= data.yang_def %></td>
+            <td class="description">陽防</td>
+            <td><%= data.yang_atk %></td>
+          </tr>
+          <tr>
+            <td class="description">速力</td>
+            <td><%= data.speed %></td>
+            <td class="description">陰攻</td>
+            <td><%= data.yin_atk %></td>
+            <td class="description">陰防</td>
+            <td><%= data.yin_def %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <h2>ショット</h2>
+    <hr />
+    <div class="shot1">
+      <%- await include ('/shot', {data: data.shot1, prefix: "拡散",
+      spellcard:false}); %>
+    </div>
+    <div class="shot2">
+      <%- await include ('/shot', {data: data.shot2, prefix: "集中",
+      spellcard:false}); %>
+    </div>
+    <h2>スペルカード</h2>
+    <hr />
+    <div class="spellcard1">
+      <%- await include('/shot', {data: data.spellcard1, prefix:
+      "1・3",spellcard: true}); %>
+    </div>
+    <div class="spellcard2">
+      <%- await include('/shot', {data: data.spellcard2, prefix: "2・4",
+      spellcard: true}); %>
+    </div>
+    <div class="lastword">
+      <%- await include('/shot', {data: data.spellcard5, prefix:
+      "ラストワード",spellcard: true}); %>
+    </div>
+    <h2>気質</h2>
+    <hr />
+    <div class="resist">
+      <fieldset>
+        <legend><%= data.resist.name %></legend>
+        <div class="resist-img">
+          <div class="bg">
+            <img src="./img/resist_bg.png" />
+          </div>
+          <% const RESIST_POSITION_DOWN_TOP = [127, 65];
+             const RESIST_POSITION_DOWN_LEFT = [1, 64, 127, 190, 253, 316, 378, 441];
+             const RESIST_POSITION_UP_TOP = [64, 1];
+             const RESIST_POSITION_UP_LEFT = [2, 65, 128, 190, 254, 316, 380, 442];
+          %>
+          <% for(let i = 1; i < data.resist.elements.length; ++i) { 
+            const ele = data.resist.elements[i];
+            const idx = i - 1;
+            if (ele) { 
+              let top, left, img;
+              if (ele < 0) { 
+                top = RESIST_POSITION_DOWN_TOP[idx % 2];
+                left = RESIST_POSITION_DOWN_LEFT[idx];
+                img = 'img/resist_down.png';
+              } else {
+                top = RESIST_POSITION_UP_TOP[idx % 2];
+                left = RESIST_POSITION_UP_LEFT[idx];
+                img = 'img/resist_up.png';
+              } 
+              %>
+              <div class="label" style=<%- `"top: ${top}px; left: ${left}px;"` %>">
+                <img src="<%= `${publicPath}/${img}` %>"/ >
+              </div> 
+            <% } } %>
+        </div>
+      </fieldset>
+    </div>
+    <h2>能力</h2>
+    <hr />
+    <div class="ability">
+      <fieldset>
+        <legend><%= data.ability.name %></legend>
+        <% for(let i = 0; i < data.ability.abilitys.length; ++i) { %>
+        <div>
+          <%- data.ability.abilitys[i] %>
+        </div>
+        <% } %>
+      </fieldset>
+    </div>
+    <h2>スキル</h2>
+    <hr />
+    <div class="skill1">
+      <%- await include('/skill', {data: data.skill1}); %>
+    </div>
+    <div class="skill2">
+      <%- await include('/skill', {data: data.skill2}); %>
+    </div>
+    <div class="skill3">
+      <%- await include('/skill', {data: data.skill3}); %>
+    </div>
+    <h2>特性</h2>
+    <hr />
+    <% for(const ch of data.characteristic.field) { %>
+    <div class="characteristic">
+      <fieldset>
+        <legend><%= ch.name %></legend>
+        <div>
+          <%- ch.description %>
+        </div>
+      </fieldset>
+    </div>
+    <% } %>
+  </body>
+</html>

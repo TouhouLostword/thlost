@@ -12,10 +12,10 @@ export type BulletRecord = MasterRecord & {
   power: int;
   type: int;
 
-  bulletint_addon_id: int;
-  bulletint_addon_value: int;
-  bulletint_extraeffect_id: int;
-  bulletint_extraeffect_success_rate: int;
+  bullet1_addon_id: int;
+  bullet1_addon_value: int;
+  bullet1_extraeffect_id: int;
+  bullet1_extraeffect_success_rate: int;
 
   bullet2_addon_id: int;
   bullet2_addon_value: int;

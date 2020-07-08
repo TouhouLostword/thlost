@@ -5,7 +5,7 @@ import {
   BulletCriticalRaceTable,
   BulletExtraEffectTable
 } from './bullet';
-import { CharateristicTable } from './characteristic';
+import { CharacteristicTable } from './characteristic';
 import { EnemyTable } from './enemy';
 import { SettingTable } from './setting';
 import { ShotTable } from './shot';
@@ -36,7 +36,7 @@ class MasterDB {
   bulletAddon: BulletAddonTable;
   bulletCriticalRace: BulletCriticalRaceTable;
   bulletExtraEffect: BulletExtraEffectTable;
-  charateristic: CharateristicTable;
+  characteristic: CharacteristicTable;
   enemy: EnemyTable;
   setting: SettingTable;
   shot: ShotTable;
@@ -61,7 +61,7 @@ class MasterDB {
     this.bulletAddon = new BulletAddonTable();
     this.bulletCriticalRace = new BulletCriticalRaceTable();
     this.bulletExtraEffect = new BulletExtraEffectTable();
-    this.charateristic = new CharateristicTable();
+    this.characteristic = new CharacteristicTable();
     this.enemy = new EnemyTable();
     this.setting = new SettingTable();
     this.shot = new ShotTable();
@@ -103,7 +103,7 @@ class MasterDB {
         this.loadtable(this.bulletAddon, 'BulletAddon'),
         this.loadtable(this.bulletCriticalRace, 'BulletCriticalRace'),
         this.loadtable(this.bulletExtraEffect, 'BulletExtraEffect'),
-        this.loadtable(this.charateristic, 'Charateristic'),
+        this.loadtable(this.characteristic, 'Characteristic'),
         this.loadtable(this.enemy, 'Enemy'),
         this.loadtable(this.setting, 'Setting'),
         this.loadtable(this.shot, 'Shot'),
@@ -122,8 +122,8 @@ class MasterDB {
           'UnitLevelLimitbreakGrowth'
         ),
         this.loadtable(this.unitPhantasmCost, 'UnitPhantasmCost'),
-        this.loadtable(this.resistTable, 'ResistMaster'),
-        this.loadtable(this.raceTable, 'RaceMaster')
+        this.loadtable(this.resistTable, 'Resist'),
+        this.loadtable(this.raceTable, 'Race')
       ]);
     } catch (err) {
       console.debug(err);
