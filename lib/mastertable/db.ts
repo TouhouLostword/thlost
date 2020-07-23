@@ -52,8 +52,8 @@ class MasterDB {
   unitRareAwakenGrowth: UnitRareAwakenGrowthTable;
   unitTrustGrowth: UnitTrustGrowthTable;
   unitPhantasmCost: UnitPhantasmCostTable;
-  resistTable: ResistTable;
-  raceTable: RaceTable;
+  resist: ResistTable;
+  race: RaceTable;
 
   constructor() {
     this.ability = new AbilityTable();
@@ -77,8 +77,8 @@ class MasterDB {
     this.unitRareAwakenGrowth = new UnitRareAwakenGrowthTable();
     this.unitTrustGrowth = new UnitTrustGrowthTable();
     this.unitPhantasmCost = new UnitPhantasmCostTable();
-    this.resistTable = new ResistTable();
-    this.raceTable = new RaceTable();
+    this.resist = new ResistTable();
+    this.race = new RaceTable();
   }
 
   private async loadtable(
@@ -122,8 +122,8 @@ class MasterDB {
           'UnitLevelLimitbreakGrowth'
         ),
         this.loadtable(this.unitPhantasmCost, 'UnitPhantasmCost'),
-        this.loadtable(this.resistTable, 'Resist'),
-        this.loadtable(this.raceTable, 'Race')
+        this.loadtable(this.resist, 'Resist'),
+        this.loadtable(this.race, 'Race')
       ]);
     } catch (err) {
       console.debug(err);

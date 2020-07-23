@@ -6,7 +6,7 @@ import './assets/resist_up.png';
 
 const NULL = 'なし';
 
-$(() => {
+$(function() {
   const $shot = $('.shot');
   $shot.accordion({
     collapsible: true,

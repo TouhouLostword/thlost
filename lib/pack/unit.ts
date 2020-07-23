@@ -34,6 +34,7 @@ export type UnitGeneratorData = {
   ability: UnitGeneratorDataAbility;
   characteristic: UnitGeneratorDataCharateristic;
   resist: UnitGeneratorDataResist;
+  races: string[];
 };
 
 export type UnitGeneratorDataAbility = {
@@ -404,6 +405,12 @@ function parseCharateristicRecord(
   };
 }
 
+function parseUnitRace(unit_id: int): string[] {
+  const urrs = DB.unitRace.findAll(r => r.unit_id === unit_id);
+
+  return urrs.map(r => DB.race.get(r.race_id).name);
+}
+
 export function parseUnitRecord(unitrecord: UnitRecord): UnitGeneratorData {
   return {
     name: unitrecord.name,
@@ -432,6 +439,7 @@ export function parseUnitRecord(unitrecord: UnitRecord): UnitGeneratorData {
     characteristic: parseCharateristicRecord(
       DB.characteristic.get(unitrecord.characteristic_id)
     ),
-    resist: parseResistRecord(DB.resistTable.get(unitrecord.resist_id))
+    resist: parseResistRecord(DB.resist.get(unitrecord.resist_id)),
+    races: parseUnitRace(unitrecord.id)
   };
 }
