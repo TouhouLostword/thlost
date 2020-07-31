@@ -11,7 +11,7 @@ import {
   ResistRecord
 } from '../mastertable';
 
-import { BulletElement } from '../battle/constant';
+import { BulletElement, EffectType } from '../battle/constant';
 
 export type UnitGeneratorData = {
   name: string;
@@ -194,8 +194,13 @@ function parseSkillEffectRecord(
   const strip = formatUnityString(skillEffectrecord.description);
 
   // str {0} str [{1} str {2}]
-  function format(value: int, rate: int, add: int): string {
+  function format(value: int, rate: int, add: int, type: int): string {
     let ret = strip;
+
+    if (type === EffectType.AddSpirit) {
+      value *= 0.05;
+    }
+
     ret = ret.replace('{0}', String(value));
 
     if (rate === 0) return ret.substr(0, ret.indexOf('['));
@@ -206,6 +211,7 @@ function parseSkillEffectRecord(
   }
 
   switch (type) {
+    case 0:
     case 1:
       for (let i = 1; i <= 10; ++i) {
         const idx = value || i;
@@ -214,7 +220,8 @@ function parseSkillEffectRecord(
           format(
             skillEffectrecord[`level${idx}_value`],
             skillEffectrecord[`level${idx}_success_rate`],
-            skillEffectrecord[`level${idx}_add_value`]
+            skillEffectrecord[`level${idx}_add_value`],
+            skillEffectrecord.type
           )
         );
       }
@@ -225,7 +232,8 @@ function parseSkillEffectRecord(
           format(
             skillEffectrecord[`level${i}_value`],
             skillEffectrecord[`level${i}_success_rate`],
-            skillEffectrecord[`level${i}_add_value`]
+            skillEffectrecord[`level${i}_add_value`],
+            skillEffectrecord.type
           )
         );
       }
@@ -236,13 +244,14 @@ function parseSkillEffectRecord(
           format(
             skillEffectrecord[`level${i}_value`],
             skillEffectrecord[`level${i}_success_rate`],
-            skillEffectrecord[`level${i}_add_value`]
+            skillEffectrecord[`level${i}_add_value`],
+            skillEffectrecord.type
           )
         );
       }
       break;
     default:
-      throw new Error();
+      throw new Error(`Unknown level type: ${type}(${skillEffectrecord.id})`);
   }
 
   return {
