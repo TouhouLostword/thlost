@@ -126,7 +126,7 @@ function formatUnityString(source: string, keepcolor = true): string {
       .replace('</color>', '</span>');
   }
 
-  return source;
+  return source.replace(/\n/g, '<br/>');
 }
 
 function parseBulletRecord(
@@ -194,12 +194,18 @@ function parseSkillEffectRecord(
   const strip = formatUnityString(skillEffectrecord.description);
 
   // str {0} str [{1} str {2}]
-  function format(value: int, rate: int, add: int, type: int): string {
+  function format(
+    value: int,
+    rate: int,
+    add: int,
+    type: int,
+    forceAdd?: boolean
+  ): string {
     let ret = strip;
 
-    if (type === EffectType.AddSpirit) {
-      value *= 0.05;
-    }
+    if (type === EffectType.AddSpirit) value *= 0.05;
+
+    if (forceAdd) value += add;
 
     ret = ret.replace('{0}', String(value));
 
@@ -221,7 +227,8 @@ function parseSkillEffectRecord(
             skillEffectrecord[`level${idx}_value`],
             skillEffectrecord[`level${idx}_success_rate`],
             skillEffectrecord[`level${idx}_add_value`],
-            skillEffectrecord.type
+            skillEffectrecord.type,
+            type === 0
           )
         );
       }
@@ -409,7 +416,7 @@ function parseCharateristicRecord(
     field,
     trust: {
       name: chrecord.trust_characteristic_name,
-      description: chrecord.trust_characteristic_description
+      description: formatUnityString(chrecord.trust_characteristic_description)
     }
   };
 }
