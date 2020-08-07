@@ -50,6 +50,7 @@ export default class Generate extends Command {
       const list = [];
       for (const ur of DB.unit.toArray()) {
         if (!ur.short_name.match('なし') && !ur.alias_name.match('なし')) {
+          if (ur.id > 9500) continue;
           this.log(ur.name);
           await UnitGenerator.generate(
             parseUnitRecord(ur),
