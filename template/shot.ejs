@@ -101,7 +101,7 @@ if(data.name === 'なし') { %>
             <td class="description">
               <%= v.addon[i] === '無' ? '-' : v.addon[i] %>
             </td>
-            <td><%= v.addon[i] === '無' ? '-' : v.addon_value[i] %></td>
+            <td><%= v.addon[i] === '無' ? '-' : v.addon_value[i].replace('無', '-') %></td>
             <% } %>
           </tr>
         </table>
