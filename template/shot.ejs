@@ -35,7 +35,10 @@ if(data.name === 'なし') { %>
             攻撃後
           </div>
           <% } %>
-          <div><%- data.effects[i].descriptions[data.effects[i].descriptions.length - 1] %></div>
+          <div>
+            <%- data.effects[i].descriptions[data.effects[i].descriptions.length
+            - 1] %>
+          </div>
         </td>
       </tr>
     </table>
@@ -44,12 +47,10 @@ if(data.name === 'なし') { %>
     <div class="bullets">
       <% data.bullets.forEach((v, i) => { %>
       <div class="magazine">
-        <% if(v.name.length == 0) { %> 
-          <% if(!i) { %>
-          <hr>
-          <div class="magazine-null">弾幕なし</div>
-          <% } %> 
-        <% } else { %>
+        <% if(v.name.length == 0) { %> <% if(!i) { %>
+        <hr />
+        <div class="magazine-null">弾幕なし</div>
+        <% } %> <% } else { %>
         <table class="magazine-line1">
           <tr>
             <td width="35">
@@ -84,7 +85,28 @@ if(data.name === 'なし') { %>
           </tr>
         </table>
 
-        <% } %>
+        <% if(v.critical_races.length) { %>
+        <table class="magazine-line3">
+          <tr>
+            <td class="description">特攻</td>
+            <td><%= v.critical_races.join(', ') %></td>
+          </tr>
+        </table>
+
+        <% } if(!v.addon.every(v => v === '無')) { %>
+        <table class="magazine-line4">
+          <tr>
+            <td class="description">追加</td>
+            <% for(let i = 0; i < v.addon.length; ++i) { %>
+            <td class="description">
+              <%= v.addon[i] === '無' ? '-' : v.addon[i] %>
+            </td>
+            <td><%= v.addon[i] === '無' ? '-' : v.addon_value[i] %></td>
+            <% } %>
+          </tr>
+        </table>
+
+        <% } %> <% } %>
       </div>
       <% }); %>
     </div>

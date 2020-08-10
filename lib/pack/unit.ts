@@ -90,10 +90,12 @@ export type UnitGeneratorDataBullet = {
   power: int;
   type: int;
 
-  addon_id: int;
-  addon_value: int;
+  addon: string[];
+  addon_value: string[];
   extraeffect_id: int;
   extraeffect_success_rate: int;
+
+  critical_races: string[];
 };
 
 export type UnitGeneratorDataSkill = {
@@ -154,12 +156,34 @@ function parseBulletRecord(
       power: 0,
       type: 0,
 
-      addon_id: 0,
-      addon_value: 0,
+      addon: [],
+      addon_value: [],
       extraeffect_id: 0,
-      extraeffect_success_rate: 0
+      extraeffect_success_rate: 0,
+      critical_races: []
     };
   }
+
+  const addon = [];
+  const addon_value = [];
+
+  for (let i = 1; i <= 3; ++i) {
+    const id = bltrecord[`bullet${i}_addon_id`] as int;
+
+    addon.push(DB.bulletAddon.get(id)?.name ?? '無');
+
+    if (id === 4 || id === 5 || id === 10 || id === 11) {
+      addon_value.push(
+        String((bltrecord[`bullet${i}_addon_value`] * 0.01).toFixed(2)) || '無'
+      );
+    } else {
+      addon_value.push('無');
+    }
+  }
+
+  const critical_races = DB.bulletCriticalRace
+    .findAll(r => r.bullet_id === bltrecord.id)
+    .map(r => DB.race.get(r.race_id).name);
 
   return {
     boost_count: record[`magazine${id}_boost_count`] ?? 0,
@@ -177,10 +201,11 @@ function parseBulletRecord(
     power: bltrecord.power,
     type: bltrecord.type,
 
-    addon_id: bltrecord.bullet1_addon_id,
-    addon_value: bltrecord.bullet1_addon_value,
-    extraeffect_id: bltrecord.bullet1_extraeffect_id,
-    extraeffect_success_rate: bltrecord.bullet1_extraeffect_success_rate
+    addon,
+    addon_value,
+    extraeffect_id: 0,
+    extraeffect_success_rate: 0,
+    critical_races
   };
 }
 

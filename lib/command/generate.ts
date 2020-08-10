@@ -44,7 +44,7 @@ export default class Generate extends Command {
     const wp = flags.production ? webpack(prodConfig) : webpack(devConfig);
 
     if (!flags.production) {
-      const ur = DB.unit.get(1038);
+      const ur = DB.unit.get(1001);
       await UnitGenerator.generate(parseUnitRecord(ur));
     } else {
       const list = [];

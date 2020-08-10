@@ -61,10 +61,45 @@ body {
 
 .magazine-line2 tr {
   border-top: black solid 1px;
-  border-bottom: black solid 1px;
 }
 
 .magazine-line2 td:first-child {
+  border-left: black 1px solid;
+}
+
+.magazine-line3 {
+  width: 100%;
+  max-width: 480px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.magazine-line3 tr {
+  border-bottom: black solid 1px;
+}
+
+.magazine-line3 td:first-child {
+  border-left: black 1px solid;
+}
+
+.magazine-line4 {
+  width: 100%;
+  max-width: 480px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.magazine-line4 tr {
+  border-bottom: black solid 1px;
+}
+
+.magazine-line4 td:first-child {
   border-left: black 1px solid;
 }
 
