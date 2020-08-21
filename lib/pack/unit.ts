@@ -224,17 +224,20 @@ function parseSkillEffectRecord(
     rate: int,
     add: int,
     type: int,
-    forceAdd?: boolean
+    forceAdd?: boolean // eslint-disable-line no-unused-vars, @typescript-eslint/no-unused-vars
   ): string {
     let ret = strip;
 
     if (type === EffectType.AddSpirit) value *= 0.05;
 
-    if (forceAdd) value += add;
+    // if (forceAdd) value += add;
 
     ret = ret.replace('{0}', String(value));
 
-    if (rate === 0) return ret.substr(0, ret.indexOf('['));
+    if (rate === 0) {
+      const i = ret.indexOf('[');
+      return ret.substr(0, i === -1 ? ret.length : i);
+    }
 
     ret = ret.replace('{1}', String(rate)).replace('{2}', String(add));
 
