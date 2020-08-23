@@ -86,7 +86,7 @@ if(data.name === 'なし') { %>
         </table>
 
         <% if(v.critical_races.length) { %>
-        <table class="magazine-line3">
+        <table class="magazine-line-mid">
           <tr>
             <td class="description">特攻</td>
             <td><%= v.critical_races.join(', ') %></td>
@@ -94,19 +94,33 @@ if(data.name === 'なし') { %>
         </table>
 
         <% } if(!v.addon.every(v => v === '無')) { %>
-        <table class="magazine-line4">
+        <table class="magazine-line-mid">
           <tr>
             <td class="description">追加</td>
             <% for(let i = 0; i < v.addon.length; ++i) { %>
             <td class="description">
               <%= v.addon[i] === '無' ? '-' : v.addon[i] %>
             </td>
-            <td><%= v.addon[i] === '無' ? '-' : v.addon_value[i].replace('無', '-') %></td>
+            <td>
+              <%= v.addon[i] === '無' ? '-' : v.addon_value[i].replace('無',
+              '-') %>
+            </td>
             <% } %>
           </tr>
         </table>
 
-        <% } %> <% } %>
+        <% } if(v.extraeffect.length) { %>
+        <table class="magazine-line-mid">
+          <% for(let i = 0 ; i < v.extraeffect.length; ++i) { %> 
+            <tr>
+              <td class="description">効果</td>
+              <td><%- v.extraeffect[i]; %></td>
+              <td class="description">確率</td>
+              <td><%- v.extraeffect_success_rate[i] %>%</td>
+            </tr>
+          <% } %>
+        </table>
+        <%} %> <% } %>
       </div>
       <% }); %>
     </div>

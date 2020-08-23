@@ -8,7 +8,8 @@ import {
   SkillRecord,
   AbilityRecord,
   CharacteristicRecord,
-  ResistRecord
+  ResistRecord,
+  BulletExtraEffectRecord
 } from '../mastertable';
 
 import { BulletElement, EffectType } from '../battle/constant';
@@ -22,6 +23,7 @@ export type UnitGeneratorData = {
   yin_atk: int;
   yang_def: int;
   yin_def: int;
+  role: int;
 
   shot1: UnitGeneratorDataShot;
   shot2: UnitGeneratorDataShot;
@@ -92,8 +94,8 @@ export type UnitGeneratorDataBullet = {
 
   addon: string[];
   addon_value: string[];
-  extraeffect_id: int;
-  extraeffect_success_rate: int;
+  extraeffect: string[];
+  extraeffect_success_rate: int[];
 
   critical_races: string[];
 };
@@ -131,6 +133,48 @@ function formatUnityString(source: string, keepcolor = true): string {
   return source.replace(/\n/g, '<br/>');
 }
 
+function parseBulletExtraEffect(record: BulletExtraEffectRecord): string {
+  const desc = record.description.replace('の「結界」', '');
+
+  const reg = /「[^」]+」/g;
+
+  let i = 0;
+  let arr;
+  let ret = '';
+
+  do {
+    arr = reg.exec(desc);
+
+    if (arr) {
+      let prop = arr[0];
+      prop = prop.replace('陽気', '陽');
+      prop = prop.replace('陰気', '陰');
+      prop = prop.replace('攻撃力', '攻');
+      prop = prop.replace('防御力', '防');
+      prop = prop.replace('クリティカル', 'CRI');
+
+      prop = prop.replace('「', '<span style="color: #CCAA00">');
+      prop = prop.replace('」', '</span>');
+
+      ret += desc.slice(i, arr.index) + prop;
+
+      i = arr.index + arr[0].length;
+    }
+  } while (arr);
+
+  ret += desc.slice(i);
+
+  ret = ret.replace('ランク', '段階');
+
+  ret = ret.replace('上げる', '<span style="color: #FF6600">アップ</span>');
+  ret = ret.replace('下げる', '<span style="color: #0066FF">ダウン</span>');
+
+  ret = ret.replace(/（[^）]+）/g, '');
+
+  ret = ret.replace('。', '');
+  return ret;
+}
+
 function parseBulletRecord(
   record: ShotRecord | SpellcardRecord,
   id: int
@@ -158,14 +202,16 @@ function parseBulletRecord(
 
       addon: [],
       addon_value: [],
-      extraeffect_id: 0,
-      extraeffect_success_rate: 0,
+      extraeffect: [],
+      extraeffect_success_rate: [],
       critical_races: []
     };
   }
 
   const addon = [];
   const addon_value = [];
+  const extraeffect = [];
+  const extraeffect_success_rate = [];
 
   for (let i = 1; i <= 3; ++i) {
     const id = bltrecord[`bullet${i}_addon_id`] as int;
@@ -178,6 +224,16 @@ function parseBulletRecord(
       );
     } else {
       addon_value.push('無');
+    }
+
+    const effid = bltrecord[`bullet${i}_extraeffect_id`] as int;
+
+    if (effid != 0) {
+      extraeffect.push(parseBulletExtraEffect(DB.bulletExtraEffect.get(effid)));
+
+      extraeffect_success_rate.push(
+        bltrecord[`bullet${i}_extraeffect_success_rate`] as int
+      );
     }
   }
 
@@ -203,8 +259,8 @@ function parseBulletRecord(
 
     addon,
     addon_value,
-    extraeffect_id: 0,
-    extraeffect_success_rate: 0,
+    extraeffect,
+    extraeffect_success_rate,
     critical_races
   };
 }
@@ -465,6 +521,7 @@ export function parseUnitRecord(unitrecord: UnitRecord): UnitGeneratorData {
     yin_def: unitrecord.yin_defense,
     yang_def: unitrecord.yang_defense,
     speed: unitrecord.speed,
+    role: unitrecord.role,
     shot1: parseShotRecord(DB.shot.get(unitrecord.shot1_id)),
     shot2: parseShotRecord(DB.shot.get(unitrecord.shot2_id)),
     spellcard1: parseSpellcardRecord(

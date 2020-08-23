@@ -24,7 +24,8 @@
                 <%= data.alias %>
               </div>
               <div class="name">
-                <%= data.name %>
+                <% const ROLE = ['', '防禦', '支援', '回復', '妨礙', '攻擊', '技巧', '速攻', '破壞']; %>
+                <%= `${data.name} - ${ROLE[data.role]}` %>
               </div>
             </td>
           </tr>
