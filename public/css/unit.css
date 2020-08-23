@@ -51,65 +51,7 @@ body {
   border-left: black 1px solid;
 }
 
-.magazine-line2 {
-  width: 100%;
-  max-width: 480px;
-  border: 1px solid black;
-  text-align: center;
-  border-collapse: collapse;
-}
-
-.magazine-line2 tr {
-  border-top: black solid 1px;
-}
-
-.magazine-line2 td:first-child {
-  border-left: black 1px solid;
-}
-
-.magazine-line3 {
-  width: 100%;
-  max-width: 480px;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  text-align: center;
-  border-collapse: collapse;
-}
-
-.magazine-line3 tr {
-  border-bottom: black solid 1px;
-}
-
-.magazine-line3 td:first-child {
-  border-left: black 1px solid;
-}
-
-.magazine-line4 {
-  width: 100%;
-  max-width: 480px;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  text-align: center;
-  border-collapse: collapse;
-}
-
-.magazine-line4 tr {
-  border-bottom: black solid 1px;
-}
-
-.magazine-line4 td:first-child {
-  border-left: black 1px solid;
-}
-
-.shot {
-  max-width: 600px;
-}
-
-.magazine {
-  padding-bottom: 5px;
-}
+/* ---- */
 
 .magazine-line1 {
   width: 100%;
@@ -129,11 +71,54 @@ body {
   border-left: none;
 }
 
+.magazine-line2 {
+  width: 100%;
+  max-width: 480px;
+  border: 1px solid black;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.magazine-line2 tr {
+  border-top: black solid 1px;
+}
+
+.magazine-line2 td:first-child {
+  border-left: black 1px solid;
+}
+
+.magazine-line-mid {
+  width: 100%;
+  max-width: 480px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.magazine-line-mid tr {
+  border-bottom: black solid 1px;
+}
+
+.magazine-line-mid td:first-child {
+  border-left: black 1px solid;
+}
+
+.shot {
+  max-width: 600px;
+}
+
+.magazine {
+  padding-bottom: 5px;
+}
+
+
 .description {
   border-left: darkgray 1px double;
   border-right: darkgray 1px double;
   white-space: nowrap;
-  width: 60px;
+  width: 56px;
 }
 
 legend {
