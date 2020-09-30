@@ -418,6 +418,8 @@ function parseSpellcardRecord(
 function parseSkillRecord(skillrecord: SkillRecord): UnitGeneratorDataSkill {
   const effects = [];
 
+  if (!skillrecord) skillrecord = DB.skill.toArray()[0];
+
   for (let i = 1; i <= 3; ++i) {
     const id = skillrecord[`effect${i}_id`];
     if (id) {
