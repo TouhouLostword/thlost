@@ -5,6 +5,8 @@ import { MasterManifest } from '../mafinest';
 import { devConfig, prodConfig } from '../pack/packs';
 import webpack = require('webpack');
 import { Generator } from '../pack/index';
+import { fileLoader } from 'ejs';
+import { Root } from '../file';
 
 export default class Generate extends Command {
   static description = 'Generate';
@@ -23,6 +25,10 @@ export default class Generate extends Command {
       char: 'p',
       default: false,
       description: 'Production mode'
+    }),
+    tw: flags.boolean({
+      description: 'Parse TW Version',
+      default: false
     })
   };
 
@@ -33,8 +39,38 @@ export default class Generate extends Command {
     this.log(str);
   }
 
+  async genAll(
+    dir: string,
+    aliasFilter?: string
+  ): Promise<Array<{ name: string; id: int }>> {
+    const list = [];
+    for (const ur of DB.unit.toArray()) {
+      if (aliasFilter) {
+        if (
+          ur.short_name.match(aliasFilter) ||
+          ur.alias_name.match(aliasFilter)
+        )
+          continue;
+      }
+
+      if (ur.id > 9500) continue;
+
+      this.log(ur.name);
+      await UnitGenerator.generate(parseUnitRecord(ur), `${dir}/${ur.id}.html`);
+
+      list.push({
+        name: ur.name + (ur.alias_name.match('_TEST') ? '_TEST' : ''),
+        id: ur.id
+      });
+    }
+
+    return list;
+  }
+
   async run(): Promise<void> {
     const { flags } = this.parse(Generate);
+
+    if (flags.tw) Root.setRoot('./twassets');
 
     await UnitGenerator.load();
 
@@ -47,29 +83,27 @@ export default class Generate extends Command {
       const ur = DB.unit.get(1051);
       await UnitGenerator.generate(parseUnitRecord(ur));
     } else {
-      const list = [];
-      for (const ur of DB.unit.toArray()) {
-        if (!ur.short_name.match('なし') && !ur.alias_name.match('なし')) {
-          if (ur.id > 9500) continue;
-          this.log(ur.name);
-          await UnitGenerator.generate(
-            parseUnitRecord(ur),
-            `unit/${ur.id}.html`
-          );
-          list.push({
-            name: ur.name + (ur.alias_name.match('_TEST') ? '_TEST' : ''),
-            id: ur.id
-          });
-        }
-      }
       const ulg = new Generator<{
+        dir: string;
         unit: {
           name: string;
           id: int;
         }[];
       }>('unitlist.html.ejs');
+
+      let list;
+
+      if (!flags.tw) {
+        list = await this.genAll('unit', 'なし');
+      } else {
+        list = await this.genAll('twunit', '沒有');
+      }
+
       await ulg.load();
-      await ulg.generate({ unit: list });
+      await ulg.generate(
+        { unit: list, dir: flags.tw ? 'twunit' : 'unit' },
+        flags.tw ? 'twunitlist.html' : 'unitlist.html'
+      );
     }
 
     if (!flags['no-webpack'] || flags.production) {

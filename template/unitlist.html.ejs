@@ -8,7 +8,7 @@
     <div>
       <% data.unit.forEach(v => { %>
         <div>
-          <a href="<%- `${publicPath}/unit/${v.id}.html` %>"><%= v.name %></a>
+          <a href="<%- `${publicPath}/${data.dir}/${v.id}.html` %>"><%= v.name %></a>
         </div>
       <% }) %>
     </div>
