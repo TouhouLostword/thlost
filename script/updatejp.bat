@@ -1,4 +1,4 @@
-echo off
+@echo off
 
 set CURRENT_DIR=%CD%
 cd ..
@@ -6,7 +6,7 @@ cd ..
 
 call "./bin/run.cmd" gen -p
 git add ./public
-git commit -am ""
+git commit -am "Update: JP"
 git push origin master
 
 @echo off
