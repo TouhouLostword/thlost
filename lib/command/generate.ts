@@ -5,7 +5,6 @@ import { MasterManifest } from '../mafinest';
 import { devConfig, prodConfig } from '../pack/packs';
 import webpack = require('webpack');
 import { Generator } from '../pack/index';
-import { fileLoader } from 'ejs';
 import { Root } from '../file';
 
 export default class Generate extends Command {
@@ -41,7 +40,7 @@ export default class Generate extends Command {
 
   async genAll(
     dir: string,
-    aliasFilter?: string
+    aliasFilter?: string | RegExp
   ): Promise<Array<{ name: string; id: int }>> {
     const list = [];
     for (const ur of DB.unit.toArray()) {
@@ -96,7 +95,7 @@ export default class Generate extends Command {
       if (!flags.tw) {
         list = await this.genAll('unit', 'なし');
       } else {
-        list = await this.genAll('twunit', '沒有');
+        list = await this.genAll('twunit', /(沒有)|(なし)/); // stupid TW version did not translate some Japanese
       }
 
       await ulg.load();
