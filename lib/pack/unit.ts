@@ -25,6 +25,8 @@ export type UnitGeneratorData = {
   yin_def: int;
   role: int;
 
+  relation: string[];
+
   shot1: UnitGeneratorDataShot;
   shot2: UnitGeneratorDataShot;
   spellcard1: UnitGeneratorDataSpellcard;
@@ -513,6 +515,11 @@ function parseUnitRace(unit_id: int): string[] {
   return urrs.map(r => DB.race.get(r.race_id).name);
 }
 
+function parseRelation(album_id: int): string[] {
+  const pr = DB.personRelation.findAll(album_id);
+  return pr.map(r => DB.person.get(r.target_person_id).name);
+}
+
 export function parseUnitRecord(unitrecord: UnitRecord): UnitGeneratorData {
   return {
     name: unitrecord.name,
@@ -524,6 +531,7 @@ export function parseUnitRecord(unitrecord: UnitRecord): UnitGeneratorData {
     yang_def: unitrecord.yang_defense,
     speed: unitrecord.speed,
     role: unitrecord.role,
+    relation: parseRelation(unitrecord.album_id),
     shot1: parseShotRecord(DB.shot.get(unitrecord.shot1_id)),
     shot2: parseShotRecord(DB.shot.get(unitrecord.shot2_id)),
     spellcard1: parseSpellcardRecord(

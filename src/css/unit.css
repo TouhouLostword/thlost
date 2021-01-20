@@ -43,6 +43,20 @@ body {
   border-collapse: collapse;
 }
 
+.property-line4 {
+  width: 100%;
+  max-width: 600px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.property-line4 td:first-child {
+  border-left: black 1px solid;
+}
+
 .property-line3 td:first-child {
   border-left: black 1px solid;
 }

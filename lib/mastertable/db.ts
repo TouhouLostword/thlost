@@ -27,6 +27,7 @@ import { MasterManifest } from '../mafinest';
 import { MasterTable, MasterRecord } from './primitive';
 import { ResistTable } from './resist';
 import { RaceTable } from './race';
+import { PersonRelationTable, PersonTable } from './person';
 
 class MasterDB {
   static PATH_FORMAT = (name: string): string => `Master/${name}.bytes`;
@@ -54,6 +55,8 @@ class MasterDB {
   unitPhantasmCost: UnitPhantasmCostTable;
   resist: ResistTable;
   race: RaceTable;
+  person: PersonTable;
+  personRelation: PersonRelationTable;
 
   constructor() {
     this.ability = new AbilityTable();
@@ -79,6 +82,8 @@ class MasterDB {
     this.unitPhantasmCost = new UnitPhantasmCostTable();
     this.resist = new ResistTable();
     this.race = new RaceTable();
+    this.person = new PersonTable();
+    this.personRelation = new PersonRelationTable();
   }
 
   private async loadtable(
@@ -123,7 +128,9 @@ class MasterDB {
         ),
         this.loadtable(this.unitPhantasmCost, 'UnitPhantasmCost'),
         this.loadtable(this.resist, 'Resist'),
-        this.loadtable(this.race, 'Race')
+        this.loadtable(this.race, 'Race'),
+        this.loadtable(this.person, 'Person'),
+        this.loadtable(this.personRelation, 'PersonRelation')
       ]);
     } catch (err) {
       console.debug(err);

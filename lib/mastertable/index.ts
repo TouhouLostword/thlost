@@ -23,6 +23,8 @@ export { ResistRecord } from './resist';
 
 export { RaceRecord } from './race';
 
+export { PersonRecord, PersonRelationRecord } from './person';
+
 export {
   UnitRecord,
   UnitRaceRecord,

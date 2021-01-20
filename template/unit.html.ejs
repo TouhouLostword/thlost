@@ -60,6 +60,19 @@
           </td>
         </tr>
       </table>
+      <table class="property-line4">
+        <tr>
+          <td class="description">R</td>
+          <td>
+            <%  let str = ''; const arr = data.relation, chunk = 5;
+                const arr2 = Array(Math.ceil(arr.length / chunk)).fill()
+                  .map((_, idx) => idx * chunk)
+                  .map(b => arr.slice(b, b + chunk));
+            %>
+            <%- arr2.reduce((acc, ele, i) => acc += (i === 0 ? '' : '<br/>') + ele.join(', ') , '') %>
+          </td>
+        </tr>
+      </table>
     </div>
     <h2>ショット</h2>
     <hr />
