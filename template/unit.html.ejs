@@ -112,9 +112,9 @@
              const RESIST_POSITION_UP_TOP = [64, 1];
              const RESIST_POSITION_UP_LEFT = [2, 65, 128, 190, 254, 316, 380, 442];
           %>
-          <% for(let i = 1; i < data.resist.elements.length; ++i) { 
+          <% for(let i = 0; i < data.resist.elements.length; ++i) { 
             const ele = data.resist.elements[i];
-            const idx = i - 1;
+            const idx = i;
             if (ele) { 
               let top, left, img;
               if (ele < 0) { 
