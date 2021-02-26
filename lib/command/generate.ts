@@ -79,7 +79,7 @@ export default class Generate extends Command {
     const wp = flags.production ? webpack(prodConfig) : webpack(devConfig);
 
     if (!flags.production) {
-      const ur = DB.unit.get(1051);
+      const ur = DB.unit.get(1011);
       await UnitGenerator.generate(parseUnitRecord(ur));
     } else {
       const ulg = new Generator<{

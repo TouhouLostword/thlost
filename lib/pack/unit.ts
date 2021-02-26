@@ -453,7 +453,7 @@ function parseSkillRecord(skillrecord: SkillRecord): UnitGeneratorDataSkill {
 function parseResistRecord(
   resistrecord: ResistRecord
 ): UnitGeneratorDataResist {
-  const elements = [0];
+  const elements = [];
   for (let i = BulletElement.Sunday; i <= BulletElement.Star; ++i) {
     const res = resistrecord[`element${i}_resistance`];
     elements.push(res - 1);

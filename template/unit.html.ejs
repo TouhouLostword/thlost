@@ -112,12 +112,11 @@
              const RESIST_POSITION_UP_TOP = [64, 1];
              const RESIST_POSITION_UP_LEFT = [2, 65, 128, 190, 254, 316, 380, 442];
           %>
-          <% for(let i = 0; i < data.resist.elements.length; ++i) { 
-            const ele = data.resist.elements[i];
-            const idx = i;
+          <% for(let idx = 0; idx < data.resist.elements.length; ++idx) { 
+            const ele = data.resist.elements[idx];
             if (ele) { 
               let top, left, img;
-              if (ele < 0) { 
+              if (ele > 0) { 
                 top = RESIST_POSITION_DOWN_TOP[idx % 2];
                 left = RESIST_POSITION_DOWN_LEFT[idx];
                 img = 'img/resist_down.png';
