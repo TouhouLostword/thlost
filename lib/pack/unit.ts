@@ -515,8 +515,8 @@ function parseUnitRace(unit_id: int): string[] {
   return urrs.map(r => DB.race.get(r.race_id).name);
 }
 
-function parseRelation(album_id: int): string[] {
-  const pr = DB.personRelation.findAll(album_id);
+function parseRelation(person_id: int): string[] {
+  const pr = DB.personRelation.findAll(person_id);
   return pr.map(r => DB.person.get(r.target_person_id).name);
 }
 
@@ -531,7 +531,7 @@ export function parseUnitRecord(unitrecord: UnitRecord): UnitGeneratorData {
     yang_def: unitrecord.yang_defense,
     speed: unitrecord.speed,
     role: unitrecord.role,
-    relation: parseRelation(unitrecord.album_id),
+    relation: parseRelation(unitrecord.person_id),
     shot1: parseShotRecord(DB.shot.get(unitrecord.shot1_id)),
     shot2: parseShotRecord(DB.shot.get(unitrecord.shot2_id)),
     spellcard1: parseSpellcardRecord(
